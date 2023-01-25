@@ -18,6 +18,14 @@ To patch the core-dns deployment with taints and tolleration use the following c
 
         $ kubectl patch deployment coredns -p \
         '{"spec":{"template":{"spec":{"tolerations":[{"effect":"NoSchedule","key":"userapp","value":"true"}]}}}}' -n kube-system
+        
+Add ingress-controller to your cluster using ingress.yaml file. Use your SSL cert ARN on line number 275.
+
+   $ kubect apply -f ingress/ingress.yaml
+   
+Add metrics server to your cluster using metrics-server/deployment.yaml file.
+
+   $ kubectl apply -f metrics-server/deployment.yaml
  
 Create a Namespace (namespace name is uesd as $org_name)
 
