@@ -20,6 +20,22 @@ To patch the core-dns deployment with taints and tolleration use the following c
         '{"spec":{"template":{"spec":{"tolerations":[{"effect":"NoSchedule","key":"userapp","value":"true"}]}}}}' -n kube-system
         
         
+Use following command for auto-scaling the cluster:
+
+    $ helm repo add autoscaler https://kubernetes.github.io/autoscaler
+    $ helm install my-release autoscaler/cluster-autoscaler \
+    --set  'autoDiscovery.clusterName'=cloudifytests \
+    --set tolerations[0].key=browsersession \
+    --set-string tolerations[0].value=true \
+    --set tolerations[0].operator=Equal \
+    --set tolerations[0].effect=NoSchedule \
+    --set tolerations[0].key=userapp \
+    --set-string tolerations[0].value=true \ 
+    --set tolerations[0].operator=Equal \
+    --set tolerations[0].effect=NoSchedule \
+    --set awsRegion=<Your-AWS-region>
+        
+        
 Add ingress-controller to your cluster using ingress.yaml file. Use your SSL cert ARN on line number 275.
 
    $ kubect apply -f ingress/ingress.yaml
