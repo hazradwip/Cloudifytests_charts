@@ -1,0 +1,172 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "cloudifytests.name" . }}-sm-create
+  labels:
+    app: {{ template "cloudifytests.name" . }}-sm-create
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  replicas: {{ .Values.smcreate.replicas }}
+  minReadySeconds: {{ .Values.smcreate.minReadySeconds }}
+  selector:
+    matchLabels:
+      app: {{ template "cloudifytests.name" . }}-sm-create
+  strategy:
+  {{- if .Values.smcreate.strategy }}
+  {{ toYaml .Values.smcreate.strategy | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "cloudifytests.name" . }}-sm-create
+        release: "{{ .Release.Name }}"
+        instance_id: {{ .Values.instanceID | quote }}
+        {{- if .Values.cloudifytests.podLabels }}
+        {{ toYaml.Values.cloudifytests.podLabels | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- if .Values.cloudifytests.podAnnotations  }}
+        {{ toYaml.Values.cloudifytests.podAnnotations | nindent 8 }}
+        {{- end }}
+    spec:
+      containers:
+      - image: {{ .Values.smcreate.image.repository }}
+        name: sm-create
+        imagePullPolicy: {{ .Values.smcreate.image.pullPolicy }}
+        resources:
+        {{ toYaml .Values.smcreate.resources | nindent 10 }}
+        env:
+        - name: BASE_URL
+          value: {{ .Values.urls.BASE_URL }}
+        - name: BACKEND_URL
+          value: {{ .Values.urls.BACKEND_URL }}  
+        - name: AWS_ACCESS_KEY_ID
+          value: {{ .Values.s3microservices.AWS_ACCESS_KEY_ID }}
+        - name: AWS_SECRET_ACCESS_KEY
+          value: {{ .Values.s3microservices.AWS_SECRET_ACCESS_KEY }}
+        - name: S3_BUCKET
+          value: {{ .Values.s3microservices.S3_BUCKET }}
+        - name: AWS_DEFAULT_REGION
+          value: {{ .Values.s3microservices.AWS_DEFAULT_REGION }}    
+        - name: AWS_ECR_IMAGE
+          value: {{ .Values.sessionmanager.AWS_ECR_IMAGE }}
+        - name: DEBUG_MODE
+          value: {{ .Values.smlogsvalues.DEBUG_MODE | quote }}
+        - name: HOST
+          value: {{ .Values.smcreateval.HOST | quote }}
+        - name: PORT
+          value: {{ .Values.smcreateval.PORT | quote }}
+        - name: ORG_NAME
+          value: {{ .Values.smlogsvalues.ORG_NAME }}
+        - name: RETRY_LIMIT
+          value: {{ .Values.smcreateval.RETRY_LIMIT | quote }}
+        - name: MAX_IDLE_SESSION_TIMEOUT_LIMIT
+          value: {{ .Values.smcreateval.MAX_IDLE_SESSION_TIMEOUT_LIMIT | quote }}
+        - name: POD_WAIT_TIME
+          value: {{ .Values.smcreateval.POD_WAIT_TIME | quote }}
+        - name: RETRY_PAUSE_TIME
+          value: {{ .Values.smcreateval.RETRY_PAUSE_TIME | quote }} 
+        - name: LOG_GROUP_NAME
+          value: {{ .Values.smcreateval.LOG_GROUP_NAME }}
+        - name: LOG_FORMAT
+          value: {{ .Values.smlogsvalues.LOG_FORMAT | quote }}   
+        - name: LOG_LEVEL
+          value: {{ .Values.smlogsvalues.LOG_LEVEL }}
+        - name: MAX_POD_TIMEOUT_LIMIT
+          value: {{ .Values.smcreateval.MAX_POD_TIMEOUT_LIMIT | quote }}
+        - name: ENABLE_CLOUDWATCH_LOGGING
+          value: {{ .Values.be.ENABLE_CLOUDWATCH_LOGGING | quote }}
+        volumeMounts:
+          - name: browser-pod-manifest
+            mountPath: /app/static_files
+          
+          
+        ports:
+          - name: sm-create
+            containerPort: 5001 
+      serviceAccountName: {{ .Values.cloudifytests.serviceAccountName }}    
+      affinity:
+      {{- if .Values.smcreate.affinity }}
+      {{ toYaml .Values.smcreate.affinity | nindent 8 }}
+      {{- end }}
+      tolerations:
+      {{- if .Values.smcreate.tolerations }}
+      {{ toYaml .Values.smcreate.tolerations | nindent 8 }}
+      {{- end }}
+      volumes:
+      {{- with .Values.smcreate.volumes }}
+      {{ toYaml .Values.smcreate.volumes | indent 8 }}
+      {{- end }}
+        - name: browser-pod-manifest
+          configMap:
+            name: {{ template "cloudifytests.name" . }}-browser-pod-configmap
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "cloudifytests.name" . }}-sm-create
+  labels:
+    app: {{ template "cloudifytests.name" . }}-sm-create
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  type: {{ .Values.nginx.service.type }}
+  ports:
+  - name: sm-create
+    port: 5001
+    protocol: TCP
+    targetPort: 5001
+  selector:
+    app: {{ template "cloudifytests.name" . }}-sm-create
+    release: {{ .Release.Name }}
+
+---
+
+    apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: cloudifytests-sm-create 
+  namespace: {{ .Values.smcreatehpa.metadata.namespace }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cloudifytests-sm-create
+  minReplicas: {{ .Values.smcreatehpa.minReplicas }}
+  maxReplicas: {{ .Values.smcreatehpa.maxReplicas }}
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: AverageValue
+        averageValue: {{ .Values.smcreatehpa.cpuaverageValue }}
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: {{ .Values.smcreatehpa.memoryaverageValue }}
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 100
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 3
+        - type: Percent
+          value: 10
+          periodSeconds: 15
+      selectPolicy: Min                 
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 3
+      selectPolicy: Max

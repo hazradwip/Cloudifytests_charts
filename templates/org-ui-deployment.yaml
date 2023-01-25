@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "cloudifytests.name" . }}-session-ui
+  labels:
+    app: {{ template "cloudifytests.name" . }}-session-ui
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  replicas: {{ .Values.sessionUi.replicas }}
+  minReadySeconds: {{ .Values.sessionUi.minReadySeconds }}
+  selector:
+    matchLabels:
+      app: {{ template "cloudifytests.name" . }}-session-ui
+  strategy:
+  {{- if .Values.sessionUi.strategy }}
+  {{ toYaml .Values.sessionUi.strategy | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "cloudifytests.name" . }}-session-ui
+        release: "{{ .Release.Name }}"
+        instance_id: {{ .Values.instanceID | quote }}
+        {{- if .Values.cloudifytests.podLabels }}
+        {{ toYaml.Values.cloudifytests.podLabels | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- if .Values.cloudifytests.podAnnotations  }}
+        {{ toYaml.Values.cloudifytests.podAnnotations | nindent 8 }}
+        {{- end }}
+    spec:
+      containers:
+      - image: {{ template "sessionUi.image" . }}
+        name: session-ui
+        imagePullPolicy: {{ .Values.sessionUi.image.pullPolicy }}
+#        args: ["-session-uri", "http://{{ template "cloudifytests.name" . }}-nginx/cloudifytests", "-listen", ":8000"]
+        resources:
+        {{ toYaml .Values.sessionUi.resources | nindent 10 }}
+        ports:
+          - name: session-ui
+            containerPort: 3000
+        # envFrom:
+        # - configMapRef:
+        #     name: s3-config        
+      affinity:
+      {{- if .Values.sessionUi.affinity }}
+      {{ toYaml .Values.sessionUi.affinity | nindent 8 }}
+      {{- end }}
+      tolerations:
+      {{- if .Values.sessionUi.tolerations }}
+      {{ toYaml .Values.sessionUi.tolerations | nindent 8 }}
+      {{- end }}
+      volumes:
+      {{- with .Values.sessionUi.volumes }}
+      {{ toYaml .Values.sessionUi.volumes | indent 8 }}
+      {{- end }}
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "cloudifytests.name" . }}-session-ui
+  labels:
+    app: {{ template "cloudifytests.name" . }}-session-ui
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  type: {{ .Values.sessionUi.service.type }}
+  {{- if not .Values.sessionUi.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.sessionUi.service.loadBalancerIP }}
+  {{- end }}
+  ports:
+  - name: session-ui
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: {{ template "cloudifytests.name" . }}-session-ui
+    release: {{ .Release.Name }}

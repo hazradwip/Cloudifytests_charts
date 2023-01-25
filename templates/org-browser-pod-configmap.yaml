@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "cloudifytests.name" . }}-browser-pod-configmap
+  labels:
+    app: {{ template "cloudifytests.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+{{ tpl (.Files.Glob "files/browser-pod-manifest.json").AsConfig . | indent 2 }}
+{{ tpl (.Files.Glob "files/browsers-data.json").AsConfig . | indent 2 }}
+{{ tpl (.Files.Glob "files/devices.json").AsConfig . | indent 2 }}

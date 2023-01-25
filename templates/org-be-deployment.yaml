@@ -1,0 +1,144 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "cloudifytests.name" . }}-session-be
+  labels:
+    app: {{ template "cloudifytests.name" . }}-session-be
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  replicas: {{ .Values.sessionbe.replicas }}
+  minReadySeconds: {{ .Values.sessionbe.minReadySeconds }}
+  selector:
+    matchLabels:
+      app: {{ template "cloudifytests.name" . }}-session-be
+  strategy:
+  {{- if .Values.sessionbe.strategy }}
+  {{ toYaml .Values.sessionbe.strategy | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "cloudifytests.name" . }}-session-be
+        release: "{{ .Release.Name }}"
+        instance_id: {{ .Values.instanceID | quote }}
+        {{- if .Values.cloudifytests.podLabels }}
+        {{ toYaml.Values.cloudifytests.podLabels | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- if .Values.cloudifytests.podAnnotations  }}
+        {{ toYaml.Values.cloudifytests.podAnnotations | nindent 8 }}
+        {{- end }}
+    spec:
+      containers:
+      - image: {{ .Values.sessionbe.image.repository }}
+        name: session-be
+        imagePullPolicy: {{ .Values.sessionbe.image.pullPolicy }}
+#        args: ["-session-uri", "http://{{ template "cloudifytests.name" . }}-nginx/cloudifytests", "-listen", ":8000"]
+        # command: ["alembic upgrade  head"]
+        resources:
+        {{ toYaml .Values.sessionbe.resources | nindent 10 }}
+        env:
+        - name: BASE_AUTH_URL
+          value: {{ .Values.urls.BASE_AUTH_URL }}
+        - name: AUTHENTICATE_USER
+          value: {{ .Values.urls.AUTHENTICATE_USER }}  
+        - name: AWS_ACCESS_KEY_ID
+          value: {{ .Values.s3microservices.AWS_ACCESS_KEY_ID }}
+        - name: AWS_SECRET_ACCESS_KEY
+          value: {{ .Values.s3microservices.AWS_SECRET_ACCESS_KEY }}
+        - name: S3_BUCKET
+          value: {{ .Values.s3microservices.S3_BUCKET }}
+        - name: AWS_DEFAULT_REGION
+          value: {{ .Values.s3microservices.AWS_DEFAULT_REGION }}    
+        - name: ORG_DB_USERNAME
+          value: {{ .Values.be.ORG_DB_USERNAME }}
+        - name: ORG_DB_PASSWORD
+          value: {{ .Values.be.ORG_DB_PASSWORD }}
+        - name: ORG_DB_HOST
+          value: {{ .Values.be.ORG_DB_HOST | quote }}
+        - name: ORG_DB_PORT
+          value: {{ .Values.be.ORG_DB_PORT | quote }}
+        - name: ORG_DB_NAME
+          value: {{ .Values.be.ORG_DB_NAME }}
+        - name: ORG_REDIS_HOST
+          value: {{ .Values.be.ORG_REDIS_HOST | quote }}
+        - name: ORG_REDIS_PORT
+          value: {{ .Values.be.ORG_REDIS_PORT | quote }}
+        - name: MAX_IDLE_SESSION_TIMEOUT_LIMIT
+          value: {{ .Values.smcreateval.MAX_IDLE_SESSION_TIMEOUT_LIMIT | quote }}
+        - name: MAX_POD_TIMEOUT_LIMIT
+          value: {{ .Values.smcreateval.MAX_POD_TIMEOUT_LIMIT | quote }}    
+        - name: SENTRY_DSN
+          value: {{ .Values.be.SENTRY_DSN }}
+        - name: CRYPTO_KEY
+          value: {{ .Values.be.CRYPTO_KEY }}
+        - name: DEBUG_MODE
+          value: {{ .Values.smlogsvalues.DEBUG_MODE | quote }}
+        - name: ORG_NAME
+          value: {{ .Values.smlogsvalues.ORG_NAME }}
+        - name: LOG_FORMAT
+          value: {{ .Values.smlogsvalues.LOG_FORMAT | quote }}   
+        - name: LOG_LEVEL
+          value: {{ .Values.smlogsvalues.LOG_LEVEL }}
+        - name: LOG_GROUP_NAME
+          value: {{ .Values.be.LOG_GROUP_NAME }}
+        - name: BASE_DOMAIN
+          value: {{ .Values.be.BASE_DOMAIN_NAME }}
+        - name: ENABLE_CLOUDWATCH_LOGGING
+          value: {{ .Values.be.ENABLE_CLOUDWATCH_LOGGING | quote }}
+        volumeMounts:
+          - name: browser-pod-manifest
+            mountPath: /app/static_files/browsers-data.json
+          - name: browser-pod-manifest
+            mountPath: /app/static_files/devices.json
+          
+        ports:
+          - name: session-be
+            containerPort: 5000
+        lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "alembic upgrade head"]
+      serviceAccountName: {{ .Values.cloudifytests.serviceAccountName }}    
+      affinity:
+      {{- if .Values.sessionbe.affinity }}
+      {{ toYaml .Values.sessionbe.affinity | nindent 8 }}
+      {{- end }}
+      tolerations:
+      {{- if .Values.sessionbe.tolerations }}
+      {{ toYaml .Values.sessionbe.tolerations | nindent 8 }}
+      {{- end }}
+      volumes:
+      {{- with .Values.sessionbe.volumes }}
+      {{ toYaml .Values.sessionbe.volumes | indent 8 }}
+      {{- end }}
+        - name: browser-pod-manifest
+          configMap:
+            name: {{ template "cloudifytests.name" . }}-browser-pod-configmap
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "cloudifytests.name" . }}-session-be
+  labels:
+    app: {{ template "cloudifytests.name" . }}-session-be
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  type: {{ .Values.nginx.service.type }}
+  {{- if not .Values.nginx.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.nginx.service.loadBalancerIP }}
+  {{- end }}
+  ports:
+  - name: session-be
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: {{ template "cloudifytests.name" . }}-session-be
+    release: {{ .Release.Name }}

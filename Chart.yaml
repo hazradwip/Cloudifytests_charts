@@ -1,0 +1,8 @@
+apiVersion: v1
+appVersion: "1.0.0"
+description: A Helm chart for cloudifytests
+name: cloudifytests
+version: 1.4.0
+maintainers:
+- name: TFT
+  email: gumber.ishant@tftus.com

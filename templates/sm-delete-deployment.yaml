@@ -1,0 +1,165 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "cloudifytests.name" . }}-sm-delete
+  labels:
+    app: {{ template "cloudifytests.name" . }}-sm-delete
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  replicas: {{ .Values.smdelete.replicas }}
+  minReadySeconds: {{ .Values.smdelete.minReadySeconds }}
+  selector:
+    matchLabels:
+      app: {{ template "cloudifytests.name" . }}-sm-delete
+  strategy:
+  {{- if .Values.smdelete.strategy }}
+  {{ toYaml .Values.smdelete.strategy | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "cloudifytests.name" . }}-sm-delete
+        release: "{{ .Release.Name }}"
+        instance_id: {{ .Values.instanceID | quote }}
+        {{- if .Values.cloudifytests.podLabels }}
+        {{ toYaml.Values.cloudifytests.podLabels | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- if .Values.cloudifytests.podAnnotations  }}
+        {{ toYaml.Values.cloudifytests.podAnnotations | nindent 8 }}
+        {{- end }}
+    spec:
+      containers:
+      - image: {{ .Values.smdelete.image.repository }}
+        name: sm-delete
+        imagePullPolicy: {{ .Values.smdelete.image.pullPolicy }}
+        resources:
+        {{ toYaml .Values.smdelete.resources | nindent 10 }}
+        env:
+        - name: BASE_URL
+          value: {{ .Values.urls.BASE_URL }}
+        - name: BACKEND_URL
+          value: {{ .Values.urls.BACKEND_URL }}  
+        - name: AWS_ACCESS_KEY_ID
+          value: {{ .Values.s3microservices.AWS_ACCESS_KEY_ID }}
+        - name: AWS_SECRET_ACCESS_KEY
+          value: {{ .Values.s3microservices.AWS_SECRET_ACCESS_KEY }}
+        - name: S3_BUCKET
+          value: {{ .Values.s3microservices.S3_BUCKET }}
+        - name: AWS_DEFAULT_REGION
+          value: {{ .Values.s3microservices.AWS_DEFAULT_REGION }}    
+        - name: AWS_ECR_IMAGE
+          value: {{ .Values.sessionmanager.AWS_ECR_IMAGE }}
+        - name: DEBUG_MODE
+          value: {{ .Values.smlogsvalues.DEBUG_MODE | quote }}
+        - name: HOST
+          value: {{ .Values.smdeleteval.HOST | quote }}
+        - name: PORT
+          value: {{ .Values.smdeleteval.PORT | quote }}
+        - name: ORG_REDIS_HOST
+          value: {{ .Values.be.ORG_REDIS_HOST | quote }}
+        - name: ORG_REDIS_PORT
+          value: {{ .Values.be.ORG_REDIS_PORT | quote }}
+        - name: ORG_NAME
+          value: {{ .Values.smlogsvalues.ORG_NAME }}    
+        - name: LOG_LEVEL
+          value: {{ .Values.smlogsvalues.LOG_LEVEL }}
+        - name: LOG_FORMAT
+          value: {{ .Values.smlogsvalues.LOG_FORMAT | quote }}
+        - name: LOG_GROUP_NAME
+          value: {{ .Values.smdeleteval.LOG_GROUP_NAME }}
+        - name: RETRY_LIMIT
+          value: {{ .Values.smdeleteval.RETRY_LIMIT | quote }}
+        - name: POD_WAIT_TIME
+          value: {{ .Values.smdeleteval.POD_WAIT_TIME | quote }}
+        - name: RETRY_PAUSE_TIME
+          value: {{ .Values.smdeleteval.RETRY_PAUSE_TIME | quote }}
+        - name: ENABLE_CLOUDWATCH_LOGGING
+          value: {{ .Values.be.ENABLE_CLOUDWATCH_LOGGING | quote }}
+        ports:
+          - name: sm-delete
+            containerPort: 5002
+      serviceAccountName: {{ .Values.cloudifytests.serviceAccountName }}    
+      affinity:
+      {{- if .Values.smdelete.affinity }}
+      {{ toYaml .Values.smdelete.affinity | nindent 8 }}
+      {{- end }}
+      tolerations:
+      {{- if .Values.smdelete.tolerations }}
+      {{ toYaml .Values.smdelete.tolerations | nindent 8 }}
+      {{- end }}
+      volumes:
+      {{- with .Values.smdelete.volumes }}
+      {{ toYaml .Values.smdelete.volumes | indent 8 }}
+      {{- end }}
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "cloudifytests.name" . }}-sm-delete
+  labels:
+    app: {{ template "cloudifytests.name" . }}-sm-delete
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  type: {{ .Values.nginx.service.type }}
+  ports:
+  - name: sm-delete
+    port: 5002
+    protocol: TCP
+    targetPort: 5002
+  selector:
+    app: {{ template "cloudifytests.name" . }}-sm-delete
+    release: {{ .Release.Name }}
+
+---
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: cloudifytests-sm-delete 
+  namespace: {{ .Values.smdeletehpa.metadata.namespace }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cloudifytests-sm-delete
+  minReplicas: {{ .Values.smdeletehpa.minReplicas }}
+  maxReplicas: {{ .Values.smdeletehpa.maxReplicas }}
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: AverageValue
+        averageValue: {{ .Values.smdeletehpa.cpuaverageValue }}
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: {{ .Values.smdeletehpa.memoryaverageValue }}
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 100
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 3
+        - type: Percent
+          value: 10
+          periodSeconds: 15
+      selectPolicy: Min                 
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 3
+      selectPolicy: Max

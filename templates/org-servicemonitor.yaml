@@ -1,0 +1,28 @@
+{{- if and ( .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" ) ( .Values.cloudifytests.serviceMonitor.enabled )  }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "cloudifytests.name" . }}
+  labels:
+    app: {{ template "cloudifytests.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "cloudifytests.name" . }}
+      release: {{ .Release.Name }}
+  endpoints:
+  - port: cloudifytests
+    interval: 30s
+    path: "/metrics"
+  {{- if .Values.cloudifytests.serviceMonitor.metricRelabelings }}
+  metricRelabelings:
+  {{ toYaml .Values.cloudifytests.serviceMonitor.metricRelabelings | nindent 4 }}
+  {{- end }}
+  {{- if .Values.cloudifytests.serviceMonitor.relabelings }}
+  relabelings:
+  {{ toYaml .Values.cloudifytests.serviceMonitor.relabelings | nindent 4 }}
+  {{- end }}
+{{- end }}
