@@ -39,7 +39,7 @@ Apply helm using following command:
         $  helm template . \
         --set s3microservices.AWS_KEY=<YOUR_AWS_ACCESS_KEY> \
         --set s3microservices.AWS_SECRET_KEY=<YOUR_AWS_SECRET_KEY> \
-        --set urls.BASE_URL=https://$org_name.cloudifytests.io \
+        --set urls.BASE_URL=https://$org_name.$Domain_name \
         --set s3microservices.AWS_BUCKET=<Your_S3_BUCKET_NAME>  \
         --set s3microservices.AWS_DEFAULT_REGION="<Your_AWS_REGION_NAME>"
         --set ingress.hosts[0]=$ingress_host \
