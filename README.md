@@ -12,7 +12,7 @@
 
 Git clone the project:
 
-       $ git clone https://github.com/Roshanitft/cloudifytests.git
+       $ git clone https://github.com/CloudifyLabs/cloudifytests_charts.git
        
 To patch the core-dns deployment with taints and tolleration use the following command.
 
