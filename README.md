@@ -28,7 +28,7 @@ To patch the core-dns deployment with taints and tolleration use the following c
         
 Add ingress-controller to your cluster using ingress.yaml file. Use your SSL cert ARN on line number 275.
 
-   $ kubect apply -f ingress/ingress.yaml
+                             $ kubect apply -f ingress/ingress.yaml
    
   
 Create a Namespace (namespace name is uesd as $org_name)
