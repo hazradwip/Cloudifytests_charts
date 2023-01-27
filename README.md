@@ -6,27 +6,40 @@
 
 **eksctl –** A command line tool for working with EKS clusters that automates many individual tasks.
 
+Minimum requirements to run application on the cluster:-
+
+   we need 4vCPU machine and 4gb ram
+
 
 
 ## Steps to add infrastructure to your local
 
 Git clone the project:
 
-       $ git clone https://github.com/Roshanitft/cloudifytests.git
+       $ git clone https://github.com/CloudifyLabs/cloudifytests_charts.git
        
 To patch the core-dns deployment with taints and tolleration use the following command.
 
         $ kubectl patch deployment coredns -p \
         '{"spec":{"template":{"spec":{"tolerations":[{"effect":"NoSchedule","key":"userapp","value":"true"}]}}}}' -n kube-system
- 
+        
+    
+        
+        
+Add ingress-controller to your cluster using ingress.yaml file. Use your SSL cert ARN on line number 275.
+
+   $ kubect apply -f ingress/ingress.yaml
+   
+  
 Create a Namespace (namespace name is uesd as $org_name)
+
 
 Apply helm using following command:
 
         $  helm template . \
         --set s3microservices.AWS_KEY=<YOUR_AWS_ACCESS_KEY> \
         --set s3microservices.AWS_SECRET_KEY=<YOUR_AWS_SECRET_KEY> \
-        --set urls.BASE_URL=https://$org_name.cloudifytests.io \
+        --set urls.BASE_URL=https://$org_name.$Domain_name \
         --set s3microservices.AWS_BUCKET=<Your_S3_BUCKET_NAME>  \
         --set s3microservices.AWS_DEFAULT_REGION="<Your_AWS_REGION_NAME>"
         --set ingress.hosts[0]=$ingress_host \
