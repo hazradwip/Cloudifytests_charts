@@ -6,7 +6,7 @@
 
 **eksctl –** A command line tool for working with EKS clusters that automates many individual tasks.
 
-minimum requirements to run application on the cluster:-
+Minimum requirements to run application on the cluster:-
 
    we need 4vCPU machine and 4gb ram
 
