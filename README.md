@@ -160,7 +160,16 @@ Git clone the project:
         --set role.metadata.namespace=$org_name --set roleBinding.metadata.namespace=$org_name \
         --set smcreatehpa.metadata.namespace=$org_name --set smdeletehpa.metadata.namespace=$org_name \
         --set serviceaccount.metadata.namespace=$orgname --set roleBinding.subjects.namespace=$orgname | kubectl create --namespace $org_name -f -
-        
+   
+
+The following table lists commonly used configuration parameters for the Cloudifytests Helm chart and their default values   
+
+|Parameter                 | Description               | Default   |
+|--------------------------|:-------------------------:|----------:|
+|'s3microservices.AWS_KEY' |Your AWS account access key|nil
+   
+   
+   
 ### Port forward the service 
    
         $ kubectl port-forward --namespace $orgname service/nginx-cloudify-node-port 9000:80
