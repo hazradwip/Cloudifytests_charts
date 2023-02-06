@@ -20,106 +20,7 @@ Minimum requirements to run application on the cluster:-
 ### Configure AWS Cli using your <Access Key> & <Secret Access Key>
 
   
-apiVersion: eksctl.io/v1alpha5
-kind: ClusterConfig
-metadata:
-  name: stg-cloudifytests
-  region: us-east-1
-  version: "1.22"
-nodeGroups:
-  - name: browsersession
-    instanceType: c5.large
-    minSize: 1
-    maxSize: 4
-    desiredCapacity: 1
-    volumeType: gp3
-    volumeSize: 50
-    kubeletExtraConfig:
-        kubeReserved:
-            cpu: "200m"
-            memory: "200Mi"
-            ephemeral-storage: "1Gi"
-        kubeReservedCgroup: "/kube-reserved"
-        systemReserved:
-            cpu: "200m"
-            memory: "300Mi"
-            ephemeral-storage: "1Gi"
-        evictionHard:
-            memory.available:  "100Mi"
-            nodefs.available: "10%"
-        featureGates:
-            RotateKubeletServerCertificate: true
-    ssh:
-      allow: true
-      publicKeyName: "cloudifytests"
-    
-    ------You can use taints for nodes as well or keep as it is (optional)-----
-
-    taints:
-      browsersession: "true:NoSchedule"
-    labels: {role: worker}
-    tags:
-      nodegroup-role: worker
-    iam:
-      withAddonPolicies:
-        externalDNS: true
-        certManager: true
-        imageBuilder: true
-        autoScaler: true
-        appMesh: true
-        appMeshPreview: true
-        ebs: true
-        efs: true
-        albIngress: true
-        xRay: true
-        cloudWatch: true
-  - name: userapp
-    instanceType: t3.xlarge
-    minSize: 1
-    maxSize: 4
-    desiredCapacity: 1
-    volumeType: gp3
-    volumeSize: 50
-    kubeletExtraConfig:
-        kubeReserved:
-            cpu: "200m"
-            memory: "200Mi"
-            ephemeral-storage: "1Gi"
-        kubeReservedCgroup: "/kube-reserved"
-        systemReserved:
-            cpu: "200m"
-            memory: "300Mi"
-            ephemeral-storage: "1Gi"
-        evictionHard:
-            memory.available:  "100Mi"
-            nodefs.available: "10%"
-        featureGates:
-            RotateKubeletServerCertificate: true
-    ssh:
-      allow: true
-      publicKeyName: "cloudifytests"
-
-    ------You can use taints for nodes as well or keep as it is (optional)--------- 
-    
-    taints:
-      userapp: "true:NoSchedule"
-    labels: {role: worker}
-    tags:
-      nodegroup-role: worker
-    iam:
-      withAddonPolicies:
-        externalDNS: true
-        certManager: true
-        imageBuilder: true
-        autoScaler: true
-        appMesh: true
-        appMeshPreview: true
-        ebs: true
-        efs: true
-        albIngress: true
-        xRay: true
-        cloudWatch: true
-   
+         
 
 
 ### Steps to add infrastructure to your local
@@ -131,24 +32,6 @@ Git clone the project:
   
 ### Create a Namespace (namespace name is uesd as $org_name)
    
-### Create a service to expose the application
-
-   
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-cloudify-node-port
-spec:
-  type: NodePort
-  selector:
-    app: cloudifytests-nginx
-  ports:
-      # By default and for convenience, the targetPort is set to the same value as the port field.
-    - port: 80
-      targetPort: 80
-      # Optional field
-      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
-      nodePort: 30005
 
 ### Apply helm using following command:
 
@@ -174,5 +57,5 @@ spec:
         
 ### Port forward the service 
    
-   kubectl port-forward --namespace $orgname service/nginx-cloudify-node-port 9000:80
+        $ kubectl port-forward --namespace $orgname service/nginx-cloudify-node-port 9000:80
    
