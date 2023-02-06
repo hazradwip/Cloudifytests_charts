@@ -162,13 +162,6 @@ Git clone the project:
         --set serviceaccount.metadata.namespace=$orgname --set roleBinding.subjects.namespace=$orgname | kubectl create --namespace $org_name -f -
    
 
-The following table lists commonly used configuration parameters for the Cloudifytests Helm chart and their default values   
-
-|Parameter                 | Description               | Default   |
-|--------------------------|:-------------------------:|----------:|
-|`s3microservices.AWS_KEY` |Your AWS account access key| `nil`     |
-|`s3microservices.AWS_SECRET_KEY`| Your AWS account secret access key| `nil`|   
-   
    
 ### Port forward the service 
    
