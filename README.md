@@ -16,8 +16,22 @@ Minimum requirements to run application on the cluster:-
 
    You need 4vCPU machine and 4gb ram
    
-## Or you can use eksctl to create a cluster. (Optional)
+### Or you can use eksctl to create a cluster. (Optional)
 ### Configure AWS Cli using your <Access Key> & <Secret Access Key>
+   
+       $ apiVersion: v1
+         kind: Service
+         metadata:
+           name: nginx-cloudify-node-port
+         spec:
+           type: NodePort
+           selector:
+             app: cloudifytests-nginx
+           ports:
+            - port: 80
+              targetPort: 80
+              nodePort: 30009
+
 
   
          
