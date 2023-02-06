@@ -19,7 +19,7 @@ Minimum requirements to run application on the cluster:-
 ## Or you can use eksctl to create a cluster. (Optional)
 ### Configure AWS Cli using your <Access Key> & <Secret Access Key>
 
-'''   
+  
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
@@ -53,10 +53,10 @@ nodeGroups:
       allow: true
       publicKeyName: "cloudifytests"
     
-    #------You can use taints for nodes as well or keep as it is (optional)-----
+    ------You can use taints for nodes as well or keep as it is (optional)-----
 
-    #taints:
-    #  browsersession: "true:NoSchedule"
+    taints:
+      browsersession: "true:NoSchedule"
     labels: {role: worker}
     tags:
       nodegroup-role: worker
@@ -99,9 +99,10 @@ nodeGroups:
       allow: true
       publicKeyName: "cloudifytests"
 
-    #------You can use taints for nodes as well or keep as it is (optional)--------- 
-    #taints:
-    #  userapp: "true:NoSchedule"
+    ------You can use taints for nodes as well or keep as it is (optional)--------- 
+    
+    taints:
+      userapp: "true:NoSchedule"
     labels: {role: worker}
     tags:
       nodegroup-role: worker
@@ -118,9 +119,7 @@ nodeGroups:
         albIngress: true
         xRay: true
         cloudWatch: true
-   '''
-
- 
+   
 
 
 ### Steps to add infrastructure to your local
@@ -134,7 +133,7 @@ Git clone the project:
    
 ### Create a service to expose the application
 
-'''   
+   
 apiVersion: v1
 kind: Service
 metadata:
@@ -150,8 +149,6 @@ spec:
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
       nodePort: 30005
-'''
-
 
 ### Apply helm using following command:
 
