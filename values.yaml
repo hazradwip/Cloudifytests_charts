@@ -324,5 +324,5 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
   path: /
   hosts:
-  - < put your domain name >
+  - localhost
   tls: []
