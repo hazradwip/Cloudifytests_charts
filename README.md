@@ -17,7 +17,102 @@ Minimum requirements to run application on the cluster:-
    You need 4vCPU machine and 4gb ram
    
 ### Or you can use eksctl to create a cluster. (Optional)
-### Configure AWS Cli using your <Access Key> & <Secret Access Key>
+#### Configure AWS Cli using your Access Key & Secret Access Key
+
+#### Cluster Creation yaml file
+
+       $ apiVersion: eksctl.io/v1alpha5
+         kind: ClusterConfig
+         metadata:
+           name: stg-cloudifytests
+           region: us-east-1
+           version: "1.22"
+         nodeGroups:
+           - name: browsersession
+             instanceType: c5.large
+             minSize: 1
+             maxSize: 4
+             desiredCapacity: 1
+             volumeType: gp3
+             volumeSize: 50
+             kubeletExtraConfig:
+                 kubeReserved:
+                     cpu: "200m"
+                     memory: "200Mi"
+                     ephemeral-storage: "1Gi"
+                 kubeReservedCgroup: "/kube-reserved"
+                 systemReserved:
+                     cpu: "200m"
+                     memory: "300Mi"
+                     ephemeral-storage: "1Gi"
+                 evictionHard:
+                     memory.available:  "100Mi"
+                     nodefs.available: "10%"
+                 featureGates:
+                     RotateKubeletServerCertificate: true
+             ssh:
+               allow: true
+               publicKeyName: "cloudifytests"
+             labels: {role: worker}
+             tags:
+               nodegroup-role: worker
+             iam:
+               withAddonPolicies:
+                 externalDNS: true
+                 certManager: true
+                 imageBuilder: true
+                 autoScaler: true
+                 appMesh: true
+                 appMeshPreview: true
+                 ebs: true
+                 efs: true
+                 albIngress: true
+                 xRay: true
+                 cloudWatch: true
+           - name: userapp
+             instanceType: t3.xlarge
+             minSize: 1
+             maxSize: 4
+             desiredCapacity: 1
+             volumeType: gp3
+             volumeSize: 50
+             kubeletExtraConfig:
+                 kubeReserved:
+                     cpu: "200m"
+                     memory: "200Mi"
+                     ephemeral-storage: "1Gi"
+                 kubeReservedCgroup: "/kube-reserved"
+                 systemReserved:
+                     cpu: "200m"
+                     memory: "300Mi"
+                     ephemeral-storage: "1Gi"
+                 evictionHard:
+                     memory.available:  "100Mi"
+                     nodefs.available: "10%"
+                 featureGates:
+                     RotateKubeletServerCertificate: true
+             ssh:
+               allow: true
+               publicKeyName: "cloudifytests"
+             labels: {role: worker}
+             tags:
+               nodegroup-role: worker
+             iam:
+               withAddonPolicies:
+                 externalDNS: true
+                 certManager: true
+                 imageBuilder: true
+                 autoScaler: true
+                 appMesh: true
+                 appMeshPreview: true
+                 ebs: true
+                 efs: true
+                 albIngress: true
+                 xRay: true
+                 cloudWatch: true
+                 
+### Use Node Port to expose the service
+
    
        $ apiVersion: v1
          kind: Service
@@ -30,10 +125,7 @@ Minimum requirements to run application on the cluster:-
            ports:
             - port: 80
               targetPort: 80
-              nodePort: 30009
-
-
-  
+              nodePort: 30005
          
 
 
