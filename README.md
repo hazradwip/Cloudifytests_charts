@@ -63,5 +63,5 @@ Git clone the project:
    
 ### Port forward the service 
    
-        $ kubectl port-forward --namespace $orgname service/nginx-cloudify-node-port 9000:80
+        $ kubectl port-forward --namespace $orgname service/cloudifytests-nginx 9000:80
    
