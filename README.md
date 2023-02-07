@@ -19,7 +19,6 @@ Minimum requirements to run application on the cluster:-
 ### Or you can use eksctl to create a cluster. (Optional)
 #### Configure AWS Cli using your Access Key & Secret Access Key
 
-#### Cluster Creation yaml file
 
 ##### Use Cluster.yaml file to create the cluster
          
