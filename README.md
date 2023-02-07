@@ -24,7 +24,8 @@ Minimum requirements to run application on the cluster:-
 ##### Use Cluster.yaml file to create the cluster
 
       $ eksctl create cluster -f <path name>/cluster.yaml
-         
+      
+    
 
 
 ### Steps to add infrastructure to your local
@@ -32,6 +33,10 @@ Minimum requirements to run application on the cluster:-
 Git clone the project:
 
        $ git clone https://github.com/CloudifyLabs/cloudifytests_charts.git
+       
+Add ingress-controller to your cluster using ingress.yaml file.
+
+       $ kubect apply -f ingress/ingress.yaml
        
   
 ### Create a Namespace (namespace name is uesd as $org_name)
@@ -45,6 +50,7 @@ Git clone the project:
         --set urls.BASE_URL=http://cloudifytests-nginx.$orgname.svc.cluster.local \
         --set s3microservices.AWS_BUCKET=<Your_S3_BUCKET_NAME>  \
         --set s3microservices.AWS_DEFAULT_REGION="<Your_AWS_REGION_NAME>" \
+        --set ingress.hosts[0]=$ingress_host \
         --set sessionbe.serviceAccountName=$org_name --set nginxhpa.metadata.namespace=$org_name \
         --set be.ORG_NAMESPACE=$org_name \
         --set sessionbe.image.repository="$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/marketplace_images:sessionbe_v0.0.1" \
