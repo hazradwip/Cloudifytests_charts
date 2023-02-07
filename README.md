@@ -17,10 +17,13 @@ Minimum requirements to run application on the cluster:-
    You need 4vCPU machine and 4gb ram
    
 ### Or you can use eksctl to create a cluster. (Optional)
-#### Configure AWS Cli using your Access Key & Secret Access Key
+
+ Configure AWS Cli using your Access Key & Secret Access Key
 
 
 ##### Use Cluster.yaml file to create the cluster
+
+      $ eksctl create cluster -f <path name>/cluster.yaml
          
 
 
@@ -39,7 +42,7 @@ Git clone the project:
         $  helm template . \
         --set s3microservices.AWS_KEY=<YOUR_AWS_ACCESS_KEY> \
         --set s3microservices.AWS_SECRET_KEY=<YOUR_AWS_SECRET_KEY> \
-        --set urls.BASE_URL=http://nginx-cloudify-node-port.$orgname.svc.cluster.local \
+        --set urls.BASE_URL=http://cloudifytests-nginx.$orgname.svc.cluster.local \
         --set s3microservices.AWS_BUCKET=<Your_S3_BUCKET_NAME>  \
         --set s3microservices.AWS_DEFAULT_REGION="<Your_AWS_REGION_NAME>" \
         --set sessionbe.serviceAccountName=$org_name --set nginxhpa.metadata.namespace=$org_name \
