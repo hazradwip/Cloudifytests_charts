@@ -110,22 +110,6 @@ Minimum requirements to run application on the cluster:-
                  albIngress: true
                  xRay: true
                  cloudWatch: true
-                 
-### Use Node Port to expose the service
-
-   
-       $ apiVersion: v1
-         kind: Service
-         metadata:
-           name: nginx-cloudify-node-port
-         spec:
-           type: NodePort
-           selector:
-             app: cloudifytests-nginx
-           ports:
-            - port: 80
-              targetPort: 80
-              nodePort: 30005
          
 
 
