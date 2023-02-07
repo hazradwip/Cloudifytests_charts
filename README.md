@@ -25,7 +25,9 @@ Minimum requirements to run application on the cluster:-
 
       $ eksctl create cluster -f <path name>/cluster.yaml
       
-    
+Add ingress-controller to your cluster using ingress.yaml file.
+
+       $ kubect apply -f ingress/ingress.yaml    
 
 
 ### Steps to add infrastructure to your local
@@ -34,9 +36,7 @@ Git clone the project:
 
        $ git clone https://github.com/CloudifyLabs/cloudifytests_charts.git
        
-Add ingress-controller to your cluster using ingress.yaml file.
 
-       $ kubect apply -f ingress/ingress.yaml
        
   
 ### Create a Namespace (namespace name is uesd as $org_name)
