@@ -1,48 +1,58 @@
-# cloudifytests Infrastructure
+# Cloudifytests Infrastructure Installation Guide
 
 
 This document provides the steps for installing the Cloudifytests product from AWS Marketplace.
 
 ## Prerequisite
 **kubectl –** A command line tool for working with Kubernetes clusters.
-### Install Kubectl
-[Install Kubectl in your local](https://kubernetes.io/docs/tasks/tools/)
 
 **eksctl –** A command line tool for working with EKS clusters that automates many individual tasks.
-### Install Eksctl
-[Install eksctl in your local](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
 Minimum requirements to run application on the cluster:-
 
    You need 4vCPU machine and 4gb ram
    
-### Or you can use eksctl to create a cluster. (Optional)
+ AWS CLI configured with your Access Key and Secret Access Key
+   
+## Installation Steps
+   
+### Install Kubectl
+[Install Kubectl in your local environment](https://kubernetes.io/docs/tasks/tools/)
 
- Configure AWS Cli using your Access Key & Secret Access Key
+### Install Eksctl
+[Install eksctl in your local environment](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
+   
+### Creating a cluster.(Optional)
 
 ##### Use Cluster.yaml file to create the cluster
 
-      $ eksctl create cluster -f <path name>/cluster.yaml
+      $ eksctl create cluster -f <path-to-file>/cluster.yaml
       
-Add ingress-controller to your cluster using ingress.yaml file.
+### Deployment Steps
+      
+##### Adding Ingress-Controller
+###### Add an ingress controller to your cluster using the ingress.yaml file
 
-       $ kubect apply -f ingress/ingress.yaml    
+       $ kubect apply -f <path-to-file>/ingress.yaml    
 
+##### Cloning the Project
 
-### Steps to add infrastructure to your local
+###### Clone the project using the following Git command:
 
-Git clone the project:
-
+         bash
+         
        $ git clone https://github.com/CloudifyLabs/cloudifytests_charts.git
        
-
-       
   
-### Create a Namespace (namespace name is uesd as $org_name)
-   
+#### Creating a Namespace 
+###### Create a namespace for the project. The namespace name will be used as $org_name
 
-### Apply helm using following command:
+       $ Kubectl create namespace <namespace name>
+   
+#### Applying Helm
+
+###### Apply helm using following command:
 
         $  helm template . \
         --set s3microservices.AWS_KEY=<YOUR_AWS_ACCESS_KEY> \
