@@ -409,15 +409,7 @@ spec:
               memory: 90Mi
       nodeSelector:
         kubernetes.io/os: linux
-      tolerations:
-      - effect: NoSchedule
-        key: browsersession
-        operator: Equal
-        value: "true"
-      - effect: NoSchedule
-        key: userapp
-        operator: Equal
-        value: "true"
+      
       serviceAccountName: ingress-nginx
       terminationGracePeriodSeconds: 300
       volumes:
@@ -643,15 +635,7 @@ spec:
       serviceAccountName: ingress-nginx-admission
       nodeSelector:
         kubernetes.io/os: linux
-      tolerations:
-      - effect: NoSchedule
-        key: browsersession
-        operator: Equal
-        value: "true"
-      - effect: NoSchedule
-        key: userapp
-        operator: Equal
-        value: "true"
+     
       securityContext:
         runAsNonRoot: true
         runAsUser: 2000
@@ -706,15 +690,6 @@ spec:
       serviceAccountName: ingress-nginx-admission
       nodeSelector:
         kubernetes.io/os: linux
-      tolerations:
-      - effect: NoSchedule
-        key: browsersession
-        operator: Equal
-        value: "true"
-      - effect: NoSchedule
-        key: userapp
-        operator: Equal
-        value: "true"
       securityContext:
         runAsNonRoot: true
         runAsUser: 2000
