@@ -5,6 +5,8 @@ metadata:
   region: ap-south-1
   version: "1.22"
 nodeGroups:
+
+    
   - name: userapp
     instanceType: t3.xlarge
     minSize: 1
@@ -31,7 +33,7 @@ nodeGroups:
       allow: true
       publicKeyName: "cloudifytests"
 
-   
+
     labels: {role: worker}
     tags:
       nodegroup-role: worker
