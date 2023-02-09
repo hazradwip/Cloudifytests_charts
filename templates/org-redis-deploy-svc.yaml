@@ -35,9 +35,5 @@ spec:
         image: redis
         ports:
         - containerPort: 6379
-      tolerations:
-      - effect: NoSchedule
-        key: userapp
-        operator: Equal
-        value: 'true'
+      
 

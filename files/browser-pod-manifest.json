@@ -47,7 +47,7 @@
             },
             {
               "name": "SCREEN_RESOLUTION",
-              "value": "1366x768x24"
+              "value": "1920x1080x24"
             },
             {
               "name": "TEST_NAME",
@@ -193,7 +193,7 @@
           "env": [
             {
               "name": "VIDEO_SIZE",
-              "value": "1366x768"
+              "value": "1920x1080"
             },
             {
               "name": "FILE_NAME",

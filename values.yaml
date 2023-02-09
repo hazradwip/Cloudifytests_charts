@@ -59,11 +59,7 @@ nginx:
   terminationGracePeriodSeconds: 60  
   volumes: {}
   affinity: {}
-  tolerations:
-  - effect: NoSchedule
-    key: userapp
-    operator: Equal
-    value: "true"
+  
   service:
     type: "ClusterIP"
   serviceMonitor:
@@ -88,20 +84,16 @@ sessionUi:
       maxSurge: 1
   resources:
     limits:
-      cpu: "200m"
+      cpu: "300m"
       memory: "300Mi"
     requests:
-      cpu: "200m"
+      cpu: "300m"
       memory: "300Mi"   
   service:
     type: "ClusterIP"
   volumes: {}
   affinity: {}
-  tolerations:
-  - effect: NoSchedule
-    key: userapp
-    operator: Equal
-    value: "true"
+ 
   
 
 sessionbe:
@@ -129,16 +121,38 @@ sessionbe:
     type: "ClusterIP"
   volumes: {}
   affinity: {}
-  tolerations:
-  - effect: NoSchedule
-    key: userapp
-    operator: Equal
-    value: "true"
   
 
 
 
 smcreate:
+  image:
+    registry:
+    repository: cloudify
+#    tag: 'latest'
+    pullPolicy: Always
+  replicas: 1
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  resources:
+    limits:
+      cpu: "400m"
+      memory: "300Mi"
+    requests:
+      cpu: "400m"
+      memory: "300Mi"   
+  serviceAccountName: default  
+  service:
+    type: "ClusterIP"
+  volumes: {}
+  affinity: {}
+ 
+
+smdelete:
   image:
     registry:
     repository: cloudify
@@ -163,45 +177,7 @@ smcreate:
     type: "ClusterIP"
   volumes: {}
   affinity: {}
-  tolerations:
-  - effect: NoSchedule
-    key: userapp
-    operator: Equal
-    value: "true"
   
-
-smdelete:
-  image:
-    registry:
-    repository: cloudify
-#    tag: 'latest'
-    pullPolicy: Always
-  replicas: 1
-  minReadySeconds: 15
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
-  resources:
-    limits:
-      cpu: "300m"
-      memory: "400Mi"
-    requests:
-      cpu: "300m"
-      memory: "400Mi"   
-  serviceAccountName: default  
-  service:
-    type: "ClusterIP"
-  volumes: {}
-  affinity: {}
-  tolerations:
-  - effect: NoSchedule
-    key: userapp
-    operator: Equal
-    value: "true"
-  
-
 urls:
   BASE_URL: "cloudify"
   BACKEND_URL: "sessionbe"
