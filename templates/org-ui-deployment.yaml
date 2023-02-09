@@ -48,10 +48,7 @@ spec:
       {{- if .Values.sessionUi.affinity }}
       {{ toYaml .Values.sessionUi.affinity | nindent 8 }}
       {{- end }}
-      tolerations:
-      {{- if .Values.sessionUi.tolerations }}
-      {{ toYaml .Values.sessionUi.tolerations | nindent 8 }}
-      {{- end }}
+      
       volumes:
       {{- with .Values.sessionUi.volumes }}
       {{ toYaml .Values.sessionUi.volumes | indent 8 }}
