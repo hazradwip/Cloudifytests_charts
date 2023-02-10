@@ -55,27 +55,27 @@ This document provides the steps for installing the Cloudifytests product from A
 
 ### Apply helm using following command:
 
-          helm template . \
---set s3microservices.AWS_ACCESS_KEY_ID=$aws_key \
---set s3microservices.AWS_SECRET_ACCESS_KEY=$aws_secret_key \
---set urls.BASE_URL=$base_url \
---set s3microservices.S3_BUCKET=$s3_bucket \
---set s3microservices.AWS_DEFAULT_REGION=$aws_region \
---set ingress.hosts[0]=$ingress_host \
---set sessionbe.serviceAccountName=$org_name --set nginxhpa.metadata.namespace=$org_name \
---set be.ORG_NAME=$org_name \
---set sessionbe.image.repository="$ecr_repo:sessionbe_$sessionbe_tag" \
---set sessionUi.image.repository="$ecr_repo" \
---set sessionUi.image.tag="sessionui_$sessionui_tag" \
---set smcreate.image.repository="$ecr_repo:smcreate_$smcreate_tag" \
---set smdelete.image.repository="$ecr_repo:smdelete_$smdelete_tag" \
---set sessionmanager.AWS_ECR_IMAGE="$public_ecr_repo" \
---set smlogsvalues.ORG_NAME=$org_name \
---set behpa.metadata.namespace=$org_name --set sessionManagaerhpa.metadata.namespace=$org_name \
---set role.metadata.namespace=$org_name --set roleBinding.metadata.namespace=$org_name \
---set smcreatehpa.metadata.namespace=$org_name --set smdeletehpa.metadata.namespace=$org_name \
---set serviceaccount.metadata.namespace=$org_name \
---set roleBinding.subjects.namespace=$org_name | kubectl create --namespace $org_name -f -
+         helm template . \
+    --set s3microservices.AWS_ACCESS_KEY_ID=<YOUR_AWS_ACCESS_KEY> \
+    --set s3microservices.AWS_SECRET_ACCESS_KEY=<YOUR_AWS_SECRET_KEY> \
+    --set urls.BASE_URL=http://cloudifytests-nginx.$orgname.svc.cluster.local \
+    --set s3microservices.AWS_BUCKET=<Your_S3_BUCKET_NAME>  \
+    --set s3microservices.AWS_DEFAULT_REGION="<Your_AWS_REGION_NAME>" \
+    --set ingress.hosts[0]=$ingress_host \
+    --set sessionbe.serviceAccountName=$org_name --set nginxhpa.metadata.namespace=$org_name \
+    --set be.ORG_NAME=$org_name \
+    --set sessionbe.image.repository="$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/marketplace_images:sessionbe_v0.0.1" \
+    --set sessionUi.image.repository="$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/marketplace_images"  \
+    --set sessionUi.image.tag="sessionui_v0.0.1" \
+    --set smcreate.image.repository="$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/marketplace_images:smcreate_v0.0.1"  \
+    --set smdelete.image.repository="$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/marketplace_images:smdelete_v0.0.1" \
+    --set sessionmanager.AWS_ECR_IMAGE="public.ecr.aws/r2h8i7a4"   \
+    --set smlogsvalues.ORG_NAME=$org_name \
+    --set behpa.metadata.namespace=$org_name --set sessionManagaerhpa.metadata.namespace=$org_name \
+    --set role.metadata.namespace=$org_name --set roleBinding.metadata.namespace=$org_name \
+    --set smcreatehpa.metadata.namespace=$org_name --set smdeletehpa.metadata.namespace=$org_name \
+    --set serviceaccount.metadata.namespace=$orgname --set roleBinding.subjects.namespace=$orgname | kubectl create --namespace $org_name -f -
+
 
    
 
