@@ -68,9 +68,6 @@ All of the fields listed above must be provided by the user in order for the scr
 
 Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.
 
-
-
- 
 #### Port forward the service 
    
          kubectl port-forward --namespace $orgname service/cloudifytests-nginx 9000:80
