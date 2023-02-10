@@ -47,7 +47,7 @@ This document provides the steps for installing the Cloudifytests product from A
        
 This repository comes with a quick launch script (quicklaunch.sh) that automates the process of deploying the application to a Kubernetes cluster.
 
-## You will be prompted to enter the following information:
+#### You will be prompted to enter the following information:
 
 |    Field          |Description   |      Required / Optional    |
 | ------------------|:-----------------------:|-----------------:|
