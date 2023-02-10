@@ -61,11 +61,11 @@ All of the fields listed above must be provided by the user in order for the scr
 
 #### To launch Cloudify Tests using the Quick Launch method, run the following commands:
 
-**Make the script executable.**
+###### Make the script executable.
 
         chmod +x quicklaunch.sh
         
-**Run the script**
+###### Run the script
         
         ./quicklaunch.sh
        
