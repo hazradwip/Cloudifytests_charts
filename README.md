@@ -44,7 +44,7 @@ This document provides the steps for installing the Cloudifytests product from A
       
 ###### Add ingress-controller to your cluster using ingress.yaml file.
 
-       kubect apply -f <path-to-file>/ingress.yaml 
+       kubect apply -f <path-to-file>/deploy-tls-termination.yaml 
        
 #### Creating a Namespace 
 
