@@ -25,13 +25,7 @@ This document provides the steps for installing the Cloudifytests product from A
 
 ### Deployment steps
 
-#### Cloning the Project
 
-###### Clone the project using the following git command.
-
-       bash
-       
-       git clone https://github.com/CloudifyLabs/cloudifytests_charts.git
        
 ### Creating Cluster. (Optional)
 
@@ -46,40 +40,41 @@ This document provides the steps for installing the Cloudifytests product from A
 
        kubect apply -f <path-to-file>/deploy-tls-termination.yaml 
        
-#### Creating a Namespace 
 
-###### Create a namespace for the project. The namespace will be uesd as $org_name
+       
+######Quick Launch Script
+      This repository comes with a quick launch script (quicklaunch.sh) that automates the process of deploying the application to a Kubernetes cluster.
 
-       kubectl create namespace <your namespace name>
-   
+###To use the script, follow these steps:
 
-### Apply helm using following command:
+    Make the script executable:
+    chmod +x quicklaunch.sh
+##Run the script:
 
-         helm template . \
-    --set s3microservices.AWS_ACCESS_KEY_ID=<YOUR_AWS_ACCESS_KEY> \
-    --set s3microservices.AWS_SECRET_ACCESS_KEY=<YOUR_AWS_SECRET_KEY> \
-    --set urls.BASE_URL=http://cloudifytests-nginx.$orgname.svc.cluster.local \
-    --set s3microservices.AWS_BUCKET=<Your_S3_BUCKET_NAME>  \
-    --set s3microservices.AWS_DEFAULT_REGION="<Your_AWS_REGION_NAME>" \
-    --set ingress.hosts[0]=$ingress_host \
-    --set sessionbe.serviceAccountName=$org_name --set nginxhpa.metadata.namespace=$org_name \
-    --set be.ORG_NAME=$org_name \
-    --set sessionbe.image.repository="$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cloudifylabs-pvt/marketplace_images:sessionbe_v0.0.1" \
-    --set sessionUi.image.repository="$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cloudifylabs-pvt/marketplace_images"  \
-    --set sessionUi.image.tag="sessionui_v0.0.1" \
-    --set smcreate.image.repository="$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cloudifylabs-pvt/marketplace_images:smcreate_v0.0.1"  \
-    --set smdelete.image.repository="$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cloudifylabs-pvt/marketplace_images:smdelete_v0.0.1" \
-    --set sessionmanager.AWS_ECR_IMAGE="public.ecr.aws/r2h8i7a4"   \
-    --set smlogsvalues.ORG_NAME=$org_name \
-    --set behpa.metadata.namespace=$org_name --set sessionManagaerhpa.metadata.namespace=$org_name \
-    --set role.metadata.namespace=$org_name --set roleBinding.metadata.namespace=$org_name \
-    --set smcreatehpa.metadata.namespace=$org_name --set smdeletehpa.metadata.namespace=$org_name \
-    --set serviceaccount.metadata.namespace=$orgname --set roleBinding.subjects.namespace=$orgname | kubectl create --namespace $org_name -f -
+     ./quicklaunch.sh
+##You will be prompted to enter the following information:
+
+Namespace name
+AWS access key
+AWS secret key
+Base URL
+Ingress host
+AWS S3 bucket name
+AWS default region
+AWS ECR image repository
+Tag for sessionbe
+Tag for sessionui
+Tag for smcreate
+Tag for smdelete
+Cluster name
 
 
-   
+Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.
 
-   
+Please note that the quick launch script assumes that you have kubectl and helm installed on your machine, and that you have access to a Kubernetes cluster.
+
+
+ 
 ### Port forward the service 
    
          kubectl port-forward --namespace $orgname service/cloudifytests-nginx 9000:80
