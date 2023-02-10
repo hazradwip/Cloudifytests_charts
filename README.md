@@ -3,7 +3,7 @@
 
 This document provides the steps for installing the Cloudifytests product from AWS Marketplace.
 
-## Prequisites
+## Prerequisites
 1.  **kubectl –** A command line tool for working with Kubernetes clusters.
 
 2.  **eksctl –** A command line tool for working with EKS clusters that automates many individual tasks.
