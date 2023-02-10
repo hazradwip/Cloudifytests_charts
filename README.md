@@ -53,10 +53,10 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
 ### To use the script, follow these steps:
 
 ###### Make the script executable:
-    chmod +x quicklaunch.sh
+       chmod +x quicklaunch.sh
 ## Run the script:
 
-     ./quicklaunch.sh
+       ./quicklaunch.sh
 ## You will be prompted to enter the following information:
 
     Namespace name
