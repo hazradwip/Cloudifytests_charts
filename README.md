@@ -77,5 +77,5 @@ Once the script has completed execution, the application will be deployed to you
 
 #### Port forward the service 
    
-         kubectl port-forward --namespace $orgname service/cloudifytests-nginx 9000:80
+         kubectl port-forward --namespace <your namespace name> service/cloudifytests-nginx 9000:80
    
