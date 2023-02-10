@@ -37,6 +37,8 @@ helm repo add autoscaler https://kubernetes.github.io/autoscaler
 helm install auto-scaler autoscaler/cluster-autoscaler --set  'autoDiscovery.clusterName'=$cluster_name \
 --set awsRegion=$aws_region
 
+kubectl apply -f ingress/deploy-tls-termination.yaml
+
 
 # Apply the Helm chart using the inputs provided by the user
 helm template . \
