@@ -59,7 +59,7 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
 ## You will be prompted to enter the following information:
 
       |    Field          |      Required / Optional    |
-      | ------------------|-----------------------------|
+      | ------------------|-----------------------------:|
       | Namespace Name    |   Required                  |
       | AWS Access Key    |   Required                  |
       | AWS Secret Key    |   Required                  |
