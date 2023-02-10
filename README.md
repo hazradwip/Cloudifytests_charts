@@ -8,6 +8,8 @@ This document provides the steps for installing the Cloudifytests product from A
 
 **eksctl –** A command line tool for working with EKS clusters that automates many individual tasks.
 
+**helm v3 -** A command line tool that enables user to install application on Kubernetes Cluster.
+
 ##### Minimum requirements to run application on the cluster:-
 
    You need 4vCPU machine and 4gb ram
@@ -22,9 +24,12 @@ This document provides the steps for installing the Cloudifytests product from A
 #### Install Eksctl
 [Install eksctl in your local environment](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
+#### Install Helm V3
+
+[Install Helm V3 in your local environment](https://helm.sh/docs/intro/install/)
+
 
 ### Deployment steps
-
 
        
 ### Creating Cluster. (Optional)
@@ -42,14 +47,14 @@ This document provides the steps for installing the Cloudifytests product from A
        
 
        
-###### Quick Launch Script
+######Quick Launch Script
       This repository comes with a quick launch script (quicklaunch.sh) that automates the process of deploying the application to a Kubernetes cluster.
 
-### To use the script, follow these steps:
+###To use the script, follow these steps:
 
     Make the script executable:
     chmod +x quicklaunch.sh
-## Run the script:
+##Run the script:
 
      ./quicklaunch.sh
 ##You will be prompted to enter the following information:
