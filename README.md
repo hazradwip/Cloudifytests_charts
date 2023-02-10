@@ -58,21 +58,21 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
        
 ## You will be prompted to enter the following information:
 
-      |    Field          |Description   |      Required / Optional    |
-      | ------------------|:-----------------------:|-----------------:|
-      | Namespace Name    |The Name of the namespace to be created|Required|
-      | AWS Access Key    |The Name of the namespace to be created|Required|
-      | AWS Secret Key    |The Name of the namespace to be created|Required|
-      | Base Url          |The Name of the namespace to be created|Required|
-      | Ingress Host      |The Name of the namespace to be created|Required|
-      | S3 Bucket name    |The Name of the namespace to be created|Required|
-      | AWS Default Region|The Name of the namespace to be created|Required|
-      | AWS ECR Image     |The Name of the namespace to be created|Required|
-      | Cluster Name      |The Name of the namespace to be created|Required|
-      | Tag for sessionbe |The Name of the namespace to be created|Required|
-      | Tag for sessionui |The Name of the namespace to be created|Required|
-      | Tag for smcreate  |The Name of the namespace to be created|Required|
-      | Tag for smdelete  |The Name of the namespace to be created|Required|
+|    Field          |Description   |      Required / Optional    |
+| ------------------|:-----------------------:|-----------------:|
+| Namespace Name    |The Name of the namespace to be created|Required|
+| AWS Access Key    |The Name of the namespace to be created|Required|
+| AWS Secret Key    |The Name of the namespace to be created|Required|
+| Base Url          |The Name of the namespace to be created|Required|
+| Ingress Host      |The Name of the namespace to be created|Required|
+| S3 Bucket name    |The Name of the namespace to be created|Required|
+| AWS Default Region|The Name of the namespace to be created|Required|
+| AWS ECR Image     |The Name of the namespace to be created|Required|
+| Cluster Name      |The Name of the namespace to be created|Required|
+| Tag for sessionbe |The Name of the namespace to be created|Required|
+| Tag for sessionui |The Name of the namespace to be created|Required|
+| Tag for smcreate  |The Name of the namespace to be created|Required|
+| Tag for smdelete  |The Name of the namespace to be created|Required|
       
       All of the fields listed above must be provided by the user in order for the script to run correctly.
       
