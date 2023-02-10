@@ -18,13 +18,13 @@ This document provides the steps for installing the Cloudifytests product from A
 
 ## Installation Steps
    
-### Install Kubectl in your local environment.
+-  **Install Kubectl in your local environment.**
 [kubectl](https://kubernetes.io/docs/tasks/tools/)
 
-### Install Eksctl in your local environment
+-  **Install Eksctl in your local environment**
 [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
-### Install Helm V3  in your local environment
+-  **Install Helm V3  in your local environment**
 
 [helm V3](https://helm.sh/docs/intro/install/)
 
