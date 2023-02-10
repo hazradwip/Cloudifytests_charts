@@ -54,19 +54,19 @@ This document provides the steps for installing the Cloudifytests product from A
 
 |    Field          |Description   |      Required / Optional    |
 | ------------------|:-----------------------:|-----------------:|
-| Namespace Name    |The name of the namespace to be created.|Required|
-| AWS Access Key    |The Access Key for your AWS Account.|Required|
-| AWS Secret Key    |The Secret Key for your AWS Account.|Required|
-| Base Url          |The Base URL for your application.|Required|
-| Ingress Host      |The Hostname for the Ingress.|Required|
-| S3 Bucket name    |The name of S3 bucket to use.|Required|
-| AWS Default Region|The default region for your AWS Account.|Required|
-| AWS ECR Image     |The name of the ECR image repository to use. |Required|
-| Tag for sessionbe |The tag for SessionBe Image|Required|
-| Tag for sessionui |The tag for SessionUI Image|Required|
-| Tag for smcreate  |The tag for SmCreate Image|Required|
-| Tag for smdelete  |The tag for SmDelete Image|Required|
-| Cluster Name      |The name of your Kubernetes Cluster.|Required|
+| **Namespace Name**    |The name of the namespace to be created.|***Required***|
+| **AWS Access Key**    |The Access Key for your AWS Account.|***Required***|
+| **AWS Secret Key**    |The Secret Key for your AWS Account.|***Required***|
+| **Base Url**          |The Base URL for your application.|***Required***|
+| **Ingress Host**      |The Hostname for the Ingress.|***Required***|
+| **S3 Bucket name**    |The name of S3 bucket to use.|***Required***|
+| **AWS Default Region**|The default region for your AWS Account.|***Required***|
+| **AWS ECR Image**     |The name of the ECR image repository to use. |***Required***|
+| **Tag for sessionbe** |The tag for SessionBe Image|***Required***|
+| **Tag for sessionui** |The tag for SessionUI Image|***Required***|
+| **Tag for smcreate**  |The tag for SmCreate Image|***Required***|
+| **Tag for smdelete**  |The tag for SmDelete Image|***Required***|
+| **Cluster Name**      |The name of your Kubernetes Cluster.|***Required***|
       
  **All of the fields listed above must be provided by the user in order for the script to run correctly.**
 
