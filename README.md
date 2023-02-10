@@ -44,22 +44,11 @@ This document provides the steps for installing the Cloudifytests product from A
        kubect apply -f <path-to-file>/deploy-tls-termination.yaml 
        
 ### Quick Launch 
-       
-##### Quick Launch Script
-This repository comes with a quick launch script (quicklaunch.sh) that automates the process of deploying the application to a Kubernetes cluster.
+       The Quick Launch method allows you to deploy Cloudify Tests using a shell script. The script will prompt you for the following required inputs:
 
-### To use the script, follow these steps:
-
-###### Make the script executable:
-       chmod +x quicklaunch.sh
-## Run the script:
-
-       ./quicklaunch.sh
-       
-## You will be prompted to enter the following information:
 
       |    Field          |      Required / Optional    |
-      | ------------------|-----------------------------:|
+      | ------------------|-----------------------------|
       | Namespace Name    |   Required                  |
       | AWS Access Key    |   Required                  |
       | AWS Secret Key    |   Required                  |
@@ -76,7 +65,10 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
       
       All of the fields listed above must be provided by the user in order for the script to run correctly.
       
+### To launch Cloudify Tests using the Quick Launch method, run the following command:
 
+
+       ./quicklaunch.sh
 
 Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.
 
