@@ -22,13 +22,7 @@ This document provides the steps for installing the Cloudifytests product from A
 #### Install Eksctl
 [Install eksctl in your local environment](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
-   
-### Creating Cluster. (Optional)
 
-###### Use Cluster.yaml file to create the cluster with the following command.
-
-       eksctl create cluster -f <path-to-file>/cluster.yaml
-       
 ### Deployment steps
 
 #### Cloning the Project
@@ -39,6 +33,12 @@ This document provides the steps for installing the Cloudifytests product from A
        
        git clone https://github.com/CloudifyLabs/cloudifytests_charts.git
        
+### Creating Cluster. (Optional)
+
+###### Use Cluster.yaml file to create the cluster with the following command.
+
+       eksctl create cluster -f <path-to-file>/cluster.yaml
+             
        
 #### Adding an Ingress Controller
       
