@@ -68,7 +68,7 @@ This document provides the steps for installing the Cloudifytests product from A
 | Tag for smdelete  |The tag for SmDelete Image|Required|
 | Cluster Name      |The name of your Kubernetes Cluster.|Required|
       
- ###### **All of the fields listed above must be provided by the user in order for the script to run correctly.**
+ **All of the fields listed above must be provided by the user in order for the script to run correctly.**
 
 ### To use the script, follow these steps:
 
