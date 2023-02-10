@@ -29,8 +29,6 @@ This document provides the steps for installing the Cloudifytests product from A
 [Install Helm V3 in your local environment](https://helm.sh/docs/intro/install/)
 
 
-### Deployment steps
-
        
 ### Creating Cluster. (Optional)
 
@@ -45,7 +43,7 @@ This document provides the steps for installing the Cloudifytests product from A
 
        kubect apply -f <path-to-file>/deploy-tls-termination.yaml 
        
-
+### Quick Launch 
        
 ##### Quick Launch Script
 This repository comes with a quick launch script (quicklaunch.sh) that automates the process of deploying the application to a Kubernetes cluster.
@@ -57,6 +55,7 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
 ## Run the script:
 
        ./quicklaunch.sh
+       
 ## You will be prompted to enter the following information:
 
       |    Field          |      Required / Optional    |
