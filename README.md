@@ -10,9 +10,9 @@ This document provides the steps for installing the Cloudifytests product from A
 
 3.  **helm v3 -** A command line tool that enables user to install application on Kubernetes Cluster.
   
-4.  **AWS CLI configured with your Access Key and Secret Access Key
+4.  **AWS CLI configured with your Access Key and Secret Access Key**
 
-5.  **Minimum requirements to run application on the cluster:-
+5.  **Minimum requirements to run application on the cluster:-**
 
         You need 4vCPU machine and 4gb ram
 
