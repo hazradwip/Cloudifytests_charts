@@ -59,7 +59,7 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
        ./quicklaunch.sh
 ## You will be prompted to enter the following information:
 
-      |    Field          |        Required Optional    |
+      |    Field          |      Required / Optional    |
       | ------------------|-----------------------------|
       | Namespace Name    |   Required                  |
       | AWS Access Key    |   Required                  |
@@ -70,6 +70,12 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
       | AWS Default Region|   Required                  |
       | AWS ECR Image     |   Required                  |
       | Cluster Name      |   Required                  |
+      | Tag for sessionbe |   Required                  |
+      | Tag for sessionui |   Required                  |
+      | Tag for smcreate  |   Required                  |
+      | Tag for smdelete  |   Required                  |
+      
+      All of the fields listed above must be provided by the user in order for the script to run correctly.
       
 
 
