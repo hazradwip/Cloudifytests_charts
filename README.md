@@ -52,7 +52,7 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
 
 ### To use the script, follow these steps:
 
-    Make the script executable:
+###### Make the script executable:
     chmod +x quicklaunch.sh
 ## Run the script:
 
