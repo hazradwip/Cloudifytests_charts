@@ -45,8 +45,27 @@ This document provides the steps for installing the Cloudifytests product from A
        
 ### Quick Launch 
        
-##### Quick Launch Script
 This repository comes with a quick launch script (quicklaunch.sh) that automates the process of deploying the application to a Kubernetes cluster.
+
+## You will be prompted to enter the following information:
+
+|    Field          |Description   |      Required / Optional    |
+| ------------------|:-----------------------:|-----------------:|
+| Namespace Name    |The name of the namespace to be created.|Required|
+| AWS Access Key    |The Access Key for your AWS Account.|Required|
+| AWS Secret Key    |The Secret Key for your AWS Account.|Required|
+| Base Url          |The Base URL for your application.|Required|
+| Ingress Host      |The Hostname for the Ingress.|Required|
+| S3 Bucket name    |The name of S3 bucket to use.|Required|
+| AWS Default Region|The default region for your AWS Account.|Required|
+| AWS ECR Image     |The name of the ECR image repository to use. |Required|
+| Tag for sessionbe |The tag for SessionBe Image|Required|
+| Tag for sessionui |The tag for SessionUI Image|Required|
+| Tag for smcreate  |The tag for SmCreate Image|Required|
+| Tag for smdelete  |The tag for SmDelete Image|Required|
+| Cluster Name      |The name of your Kubernetes Cluster.|Required|
+      
+      All of the fields listed above must be provided by the user in order for the script to run correctly.
 
 ### To use the script, follow these steps:
 
@@ -56,27 +75,6 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
 
        ./quicklaunch.sh
        
-## You will be prompted to enter the following information:
-
-|    Field          |Description   |      Required / Optional    |
-| ------------------|:-----------------------:|-----------------:|
-| Namespace Name    |The Name of the namespace to be created|Required|
-| AWS Access Key    |The Name of the namespace to be created|Required|
-| AWS Secret Key    |The Name of the namespace to be created|Required|
-| Base Url          |The Name of the namespace to be created|Required|
-| Ingress Host      |The Name of the namespace to be created|Required|
-| S3 Bucket name    |The Name of the namespace to be created|Required|
-| AWS Default Region|The Name of the namespace to be created|Required|
-| AWS ECR Image     |The Name of the namespace to be created|Required|
-| Cluster Name      |The Name of the namespace to be created|Required|
-| Tag for sessionbe |The Name of the namespace to be created|Required|
-| Tag for sessionui |The Name of the namespace to be created|Required|
-| Tag for smcreate  |The Name of the namespace to be created|Required|
-| Tag for smdelete  |The Name of the namespace to be created|Required|
-      
-      All of the fields listed above must be provided by the user in order for the script to run correctly.
-      
-
 
 Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.
 
