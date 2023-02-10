@@ -65,7 +65,7 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
 | Tag for smdelete  |The tag for SmDelete Image|Required|
 | Cluster Name      |The name of your Kubernetes Cluster.|Required|
       
- All of the fields listed above must be provided by the user in order for the script to run correctly.
+ **All of the fields listed above must be provided by the user in order for the script to run correctly.**
 
 ### To use the script, follow these steps:
 
@@ -76,9 +76,9 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
        ./quicklaunch.sh
        
 
-Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.
+**Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.**
 
-Please note that the quick launch script assumes that you have kubectl and helm installed on your machine, and that you have access to a Kubernetes cluster.
+**Please note that the quick launch script assumes that you have kubectl and helm installed on your machine, and that you have access to a Kubernetes cluster.**
 
 
  
