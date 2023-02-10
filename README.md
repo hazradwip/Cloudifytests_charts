@@ -63,6 +63,14 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
       | ------------------|-----------------------------|
       | Namespace Name    |   Required                  |
       | AWS Access Key    |   Required                  |
+      | AWS Secret Key    |   Required                  |
+      | Base Url          |   Required                  |
+      | Ingress Host      |   Required                  |
+      | S3 Bucket name    |   Required                  |
+      | AWS Default Region|   Required                  |
+      | AWS ECR Image     |   Required                  |
+      | Cluster Name      |   Required                  |
+      
 
 
 Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.
