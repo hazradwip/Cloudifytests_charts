@@ -44,7 +44,8 @@ This document provides the steps for installing the Cloudifytests product from A
        kubect apply -f <path-to-file>/deploy-tls-termination.yaml 
        
 ### Quick Launch 
-       The Quick Launch method allows you to deploy Cloudify Tests using a shell script. The script will prompt you for the following required inputs:
+
+  The Quick Launch method allows you to deploy Cloudify Tests using a shell script. The script will prompt you for the following required inputs:
 
 
       |    Field          |      Required / Optional    |
