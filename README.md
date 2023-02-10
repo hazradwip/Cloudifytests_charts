@@ -4,17 +4,17 @@
 This document provides the steps for installing the Cloudifytests product from AWS Marketplace.
 
 ## Prerequisites
-**kubectl –** A command line tool for working with Kubernetes clusters.
+1.  **kubectl –** A command line tool for working with Kubernetes clusters.
 
-**eksctl –** A command line tool for working with EKS clusters that automates many individual tasks.
+2.  **eksctl –** A command line tool for working with EKS clusters that automates many individual tasks.
 
-**helm v3 -** A command line tool that enables user to install application on Kubernetes Cluster.
+3.  **helm v3 -** A command line tool that enables user to install application on Kubernetes Cluster.
+  
+4.  **AWS CLI configured with your Access Key and Secret Access Key
 
-##### Minimum requirements to run application on the cluster:-
+5.  **Minimum requirements to run application on the cluster:-
 
-   You need 4vCPU machine and 4gb ram
-   
-##### AWS CLI configured with your Access Key and Secret Access Key
+        You need 4vCPU machine and 4gb ram
 
 ### Installation Steps
    
