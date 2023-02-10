@@ -53,7 +53,7 @@ This document provides the steps for installing the Cloudifytests product from A
 #### You will be prompted to enter the following information:
 
 |    Field          |Description   |      Required / Optional    |
-| ------------------|:-----------------------:|-----------------:|
+| :------------------:|:-----------------------:|:-----------------:|
 | **Namespace Name**    |The name of the namespace to be created.|***Required***|
 | **AWS Access Key**    |The Access Key for your AWS Account.|***Required***|
 | **AWS Secret Key**    |The Secret Key for your AWS Account.|***Required***|
