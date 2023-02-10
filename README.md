@@ -27,14 +27,14 @@ This document provides the steps for installing the Cloudifytests product from A
 
        
 ### Creating Cluster. (Optional)
---
+---
 
 ###### Use Cluster.yaml file to create the cluster with the following command.
 
        eksctl create cluster -f <path-to-file>/cluster.yaml
              
 ### Quick Launch 
---
+---
        
 ###### **This repository comes with a quick launch script (quicklaunch.sh) that automates the process of deploying the application to a Kubernetes cluster.**
 
@@ -62,7 +62,7 @@ This document provides the steps for installing the Cloudifytests product from A
 All of the fields listed above must be provided by the user in order for the script to run correctly.
 
 #### To launch Cloudify Tests using the Quick Launch method, run the following commands:
---
+---
 
 ###### Make the script executable.
 
