@@ -68,14 +68,14 @@ This document provides the steps for installing the Cloudifytests product from A
 | **Tag for smdelete**  |The tag for SmDelete Image|***Required***|
 | **Cluster Name**      |The name of your Kubernetes Cluster.|***Required***|
       
- **All of the fields listed above must be provided by the user in order for the script to run correctly.**
+All of the fields listed above must be provided by the user in order for the script to run correctly.
 
 ### To launch Cloudify Tests using the Quick Launch method, run the following command:
 
        ./quicklaunch.sh
        
 
-**Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.**
+Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.
 
 
 
