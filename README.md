@@ -14,7 +14,7 @@ This document provides the steps for installing the Cloudifytests product from A
 
 5.  **Minimum requirements to run application on the cluster:-**
 
-        You need 4vCPU machine and 4gb ram
+      You need 4vCPU machine and 4gb ram
 
 ### Installation Steps
    
