@@ -67,7 +67,7 @@ helm template . \
 
 
 printf "\n"
-printf "Wait for 1 min and use this URL to access your application"
+printf "Wait for 2 min and use this URL to access your application"
 printf "\n"
 printf "\n"
 printf "URL : "
