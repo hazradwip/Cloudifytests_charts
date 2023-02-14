@@ -24,6 +24,8 @@ read -p "Enter the ingress host: " ingress_host
 read -p "Enter your S3 bucket name: " s3_bucket
 read -p "Enter your AWS default region: " aws_region
 
+aws s3api create-bucket --bucket $s3_bucket --create-bucket-configuration LocationConstraint=$aws_region
+
 # Define the AWS ECR image repository and tag as input by the user
 read -p "Enter your AWS ECR image repository: " ecr_repo
 read -p "Enter the tag for sessionbe: " sessionbe_tag
