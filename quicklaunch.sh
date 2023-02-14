@@ -66,3 +66,10 @@ helm template . \
 --set roleBinding.subjects.namespace=$org_name | kubectl create --namespace $org_name -f -
 
 
+printf "\n"
+printf "Wait for 1 min and use this URL to access your application"
+printf "\n"
+printf "\n"
+printf "URL : "
+kubectl get svc -n $org_name cloudifytests-nginx -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"
+

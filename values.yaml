@@ -61,7 +61,7 @@ nginx:
   affinity: {}
   
   service:
-    type: "ClusterIP"
+    type: "LoadBalancer"
   serviceMonitor:
     enabled: false
     metricRelabelings: {}
