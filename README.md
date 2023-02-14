@@ -73,9 +73,9 @@ All of the fields listed above must be provided by the user in order for the scr
         ./quicklaunch.sh
        
 
-Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace.
+Once the script has completed execution, the application will be deployed to your Kubernetes cluster in the specified namespace. You can use the LoadBalancer URL to access the application or you can use by port-forwarding method. 
 
-#### Port forward the service 
+#### Port forward the service [Optional]
    
          kubectl port-forward --namespace <your namespace name> service/cloudifytests-nginx 9000:80
    
