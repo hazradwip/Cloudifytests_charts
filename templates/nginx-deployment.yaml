@@ -100,10 +100,7 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
-  type: {{ .Values.nginx.service.type }}
-  {{- if not .Values.nginx.service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.nginx.service.loadBalancerIP }}
-  {{- end }}
+  type: LoadBalancer
   ports:
   - name: nginx
     port: 80

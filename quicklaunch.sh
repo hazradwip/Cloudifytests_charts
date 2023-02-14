@@ -17,14 +17,14 @@ read -p "Enter your AWS access key: " aws_key
 read -p "Enter your AWS secret key: " aws_secret_key
 
 # Define the base URL and ingress host as input by the user
-read -p "Enter the base URL: " base_url
+
 read -p "Enter the ingress host: " ingress_host
 
 # Define the AWS S3 bucket name and default region as input by the user
 read -p "Enter your S3 bucket name: " s3_bucket
 read -p "Enter your AWS default region: " aws_region
 
-aws s3api create-bucket --bucket $s3_bucket --create-bucket-configuration LocationConstraint=$aws_region
+aws s3api create-bucket --bucket $s3_bucket --region=$aws_region
 
 # Define the AWS ECR image repository and tag as input by the user
 read -p "Enter your AWS ECR image repository: " ecr_repo
@@ -46,7 +46,7 @@ kubectl apply -f ingress/deploy-tls-termination.yaml
 helm template . \
 --set s3microservices.AWS_ACCESS_KEY_ID=$aws_key \
 --set s3microservices.AWS_SECRET_ACCESS_KEY=$aws_secret_key \
---set urls.BASE_URL=$base_url \
+--set urls.BASE_URL=http://cloudifytests-nginx.test.svc.cluster.local \
 --set s3microservices.S3_BUCKET=$s3_bucket \
 --set s3microservices.AWS_DEFAULT_REGION=$aws_region \
 --set ingress.hosts[0]=$ingress_host \
@@ -72,4 +72,5 @@ printf "\n"
 printf "\n"
 printf "URL : "
 kubectl get svc -n $org_name cloudifytests-nginx -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"
+printf "\n"
 
