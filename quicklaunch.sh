@@ -9,8 +9,7 @@ sudo git clone  https://github.com/CloudifyLabs/cloudifytests_charts.git
 # Change into the cloned repository directory
 cd cloudifytests_charts
 
-# Create a namespace with the name entered by the user
-kubectl create namespace $org_name
+
 
 # Define the AWS access key and secret key as input by the user
 read -p "Enter your AWS access key: " aws_key
@@ -33,6 +32,14 @@ read -p "Enter the tag for sessionui: " sessionui_tag
 read -p "Enter the tag for smcreate: " smcreate_tag
 read -p "Enter the tag for smdelete: " smdelete_tag
 read -p "Enter your cluster name: " cluster_name
+
+# Update KubeConfig
+aws eks update-kubeconfig --name $cluster_name --region $aws_region
+
+
+# Create a namespace with the name entered by the user
+kubectl create namespace $org_name
+
 
 helm repo add autoscaler https://kubernetes.github.io/autoscaler
 
