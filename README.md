@@ -25,13 +25,18 @@ This document provides the steps for installing the Cloudifytests product from A
 -  [**Install Helm V3  in your local environment**](https://helm.sh/docs/intro/install/)
 
 
+### Cloning the cluster
+
+       git clone https://github.com/CloudifyLabs/Cloudifytests_charts.git
+       
+       cd Cloudifytests_charts
        
 ### Creating Cluster. (Optional)
 
 
 ###### Use Cluster.yaml file to create the cluster with the following command.
 
-       eksctl create cluster -f <path-to-file>/cluster.yaml
+       eksctl create cluster -f cluster.yaml
              
 ### Quick Launch 
 
@@ -48,7 +53,6 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
 | **Namespace Name**    |The name of the namespace to be created.|***Required***|
 | **AWS Access Key**    |The Access Key for your AWS Account.|***Required***|
 | **AWS Secret Key**    |The Secret Key for your AWS Account.|***Required***|
-| **Base Url**          |The Base URL for your application.|***Required***|
 | **Ingress Host**      |The Hostname for the Ingress.|***Required***|
 | **S3 Bucket name**    |The name of S3 bucket to use.|***Required***|
 | **AWS Default Region**|The default region for your AWS Account.|***Required***|
