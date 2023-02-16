@@ -17,6 +17,11 @@ if [[ "$(cat /etc/os-release | grep -o 'NAME=\"Amazon Linux\"')" == 'NAME="Amazo
   fi
 fi
 
+# Check if Helm is installed and install it if it's not
+if ! command -v helm &> /dev/null; then
+  curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+fi
+
 # Define the AWS access key and secret key as input by the user
 read -p "Enter your AWS access key: " aws_key
 read -p "Enter your AWS secret key: " aws_secret_key
