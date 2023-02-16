@@ -9,7 +9,13 @@ sudo git clone  https://github.com/CloudifyLabs/cloudifytests_charts.git
 # Change into the cloned repository directory
 cd cloudifytests_charts
 
-
+# Check if the operating system is Amazon Linux
+if [[ "$(cat /etc/os-release | grep -o 'NAME=\"Amazon Linux\"')" == 'NAME="Amazon Linux"' ]]; then
+  # Install openssl if it is not already installed
+  if ! command -v openssl &> /dev/null; then
+    sudo yum install -y openssl
+  fi
+fi
 
 # Define the AWS access key and secret key as input by the user
 read -p "Enter your AWS access key: " aws_key
@@ -78,6 +84,6 @@ printf "Wait for 2 min and use this URL to access your application"
 printf "\n"
 printf "\n"
 printf "URL : "
-kubectl get svc -n $org_name cloudifytests-nginx -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"
+kubectl get svc -n $org_name cloudifytests-nginx -o 'go-template={{range .status.loadBalancer.ingress}}{{.hostname}}{{end}}'
 printf "\n"
 
