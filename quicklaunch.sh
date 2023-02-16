@@ -84,11 +84,22 @@ helm template . \
 --set roleBinding.subjects.namespace=$org_name | kubectl create --namespace $org_name -f -
 
 
-printf "\n"
-printf "Wait for 2 min and use this URL to access your application"
-printf "\n"
-printf "\n"
-printf "URL : "
-kubectl get svc -n $org_name cloudifytests-nginx -o 'go-template={{range .status.loadBalancer.ingress}}{{.hostname}}{{end}}'
-printf "\n"
 
+# Get the hostname of the service in the specified namespace
+hostname=""
+for i in {1..5}; do
+  hostname=$(kubectl get svc -n $org_name cloudifytests-nginx -o 'go-template={{range .status.loadBalancer.ingress}}{{.hostname}}{{end}}')
+  if [[ -n "$hostname" ]]; then
+    break
+  else
+    echo "Hostname not found. Retrying in 30 seconds..."
+    sleep 30
+  fi
+done
+
+if [[ -z "$hostname" ]]; then
+  echo "Failed to get the hostname."
+  exit 1
+fi
+
+echo "The hostname of service is: $hostname"
