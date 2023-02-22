@@ -58,15 +58,9 @@ This repository comes with a quick launch script (quicklaunch.sh) that automates
       
 All of the fields listed above must be provided by the user in order for the script to run correctly.
 
-#### To launch Cloudify Tests using the Quick Launch method, run the following commands:
+#### To launch Cloudify Tests using the Quick Launch method, run the following command:
 
-
-###### Make the script executable.
-
-        sudo chmod +x quicklaunch.sh
-        
-###### Run the script
-        
+      
         ./quicklaunch.sh
        
 
