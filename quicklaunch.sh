@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# Define the name of the namespace as input by the user
-read -p "Enter the namespace name: " org_name
+
 
 # Git clone the repository
-sudo git clone  https://github.com/CloudifyLabs/cloudifytests_charts.git
+# sudo git clone  https://github.com/CloudifyLabs/cloudifytests_charts.git
 
 # Change into the cloned repository directory
-cd cloudifytests_charts
+#cd Cloudifytests_charts
 
 # Check if the operating system is Amazon Linux
 if [[ "$(cat /etc/os-release | grep -o 'NAME=\"Amazon Linux\"')" == 'NAME="Amazon Linux"' ]]; then
@@ -21,6 +20,22 @@ fi
 if ! command -v helm &> /dev/null; then
   curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 fi
+
+echo "Kindly check all the details in cluster.yaml If you want to create the cluster."
+read -p "Enter Yes to create cluster using the cluster.yaml or Enter No to skip this step : " flag
+
+if [[ $flag == "yes" || $flag == "Yes" ]]; then
+eksctl create cluster -f cluster.yaml
+
+else 
+echo "This application will be deployed on your own Cluster."
+echo "Verify If your cluster is accessible using kubectl CLI."
+fi
+
+
+
+# Define the name of the namespace as input by the user
+read -p "Enter the namespace name: " org_name
 
 # Define the AWS access key and secret key as input by the user
 read -p "Enter your AWS access key: " aws_key
