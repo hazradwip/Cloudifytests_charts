@@ -107,7 +107,7 @@ for i in {1..5}; do
   if [[ -n "$hostname" ]]; then
     break
   else
-    echo "Hostname not found. Retrying in 30 seconds..."
+    echo "Creating your environment..."
     sleep 30
   fi
 done
