@@ -163,7 +163,11 @@
             {
               "name": "RETRY_PAUSE_TIME",
               "value": "5"
-            }
+            },
+            {
+              "name": "IDLE_TIMED_OUT",
+              "value": "False"
+            }  
           ],
           "resources": {
             "limits": {
