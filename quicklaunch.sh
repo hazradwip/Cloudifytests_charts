@@ -116,5 +116,5 @@ if [[ -z "$hostname" ]]; then
   echo "Failed to get the hostname."
   exit 1
 fi
-
+echo "Wait for 2 minutes and use this hostname to access the application"
 echo "The hostname of service is: $hostname"
