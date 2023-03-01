@@ -79,7 +79,7 @@ kubectl apply -f ingress/deploy-tls-termination.yaml
 helm template . \
 --set s3microservices.AWS_ACCESS_KEY_ID=$aws_key \
 --set s3microservices.AWS_SECRET_ACCESS_KEY=$aws_secret_key \
---set urls.BASE_URL=http://cloudifytests-nginx.$org_name.svc.cluster.local \
+--set urls.BASE_URL=http://cloudifytests-session-be.$org_name.svc.cluster.local:5000/ \
 --set s3microservices.S3_BUCKET=$s3_bucket \
 --set s3microservices.AWS_DEFAULT_REGION=$aws_region \
 --set ingress.hosts[0]=$ingress_host \
