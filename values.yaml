@@ -180,8 +180,8 @@ smdelete:
   
 urls:
   BASE_URL: "cloudify"
-  BACKEND_URL: "sessionbe"
-  AUTHENTICATE_USER: "authenticate-user"
+  BACKEND_URL: ""
+  AUTHENTICATE_USER: "/api/token/authenticate-user"
 
 #Session Env variables
 sessionmanager:
@@ -196,6 +196,8 @@ smcreateval:
   RETRY_PAUSE_TIME: "10"
   POD_WAIT_TIME: "120"
   MAX_POD_TIMEOUT_LIMIT: "120"
+  ORG_NGINX_SVC_NAME: "http://cloudifytests-nginx."
+  ORG_CLUSTER_SVC_NAME: ".svc.cluster.local:80"
 
 smdeleteval:
   HOST: 0.0.0.0
