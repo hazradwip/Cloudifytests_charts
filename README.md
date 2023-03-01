@@ -8,11 +8,9 @@ This document provides the steps for installing the Cloudifytests product from A
 
 2.  **eksctl –** A command line tool for working with EKS clusters that automates many individual tasks.
 
-3.  **helm v3 -** A command line tool that enables user to install application on Kubernetes Cluster.
-  
-4.  **AWS CLI configured with your Access Key and Secret Access Key**
+3.  **AWS CLI configured with your Access Key and Secret Access Key**
 
-5.  **Minimum requirements to run application on the cluster:-**
+4.  **Minimum requirements to run application on the cluster:-**
 
       *You need 4vCPU machine and 4gb ram*
 
@@ -22,7 +20,7 @@ This document provides the steps for installing the Cloudifytests product from A
 
 -  [**Install Eksctl in your local environment**](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
--  [**Install Helm V3  in your local environment**](https://helm.sh/docs/intro/install/)
+-  [**Install AWS CLI in your local environment**](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 
 ### Cloning the cluster
