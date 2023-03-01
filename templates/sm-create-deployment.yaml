@@ -78,6 +78,10 @@ spec:
           value: {{ .Values.smcreateval.MAX_POD_TIMEOUT_LIMIT | quote }}
         - name: ENABLE_CLOUDWATCH_LOGGING
           value: {{ .Values.be.ENABLE_CLOUDWATCH_LOGGING | quote }}
+        - name: ORG_NGINX_SVC_NAME
+          value: {{ .Values.smcreateval.ORG_NGINX_SVC_NAME | quote }}
+        - name: ORG_CLUSTER_SVC_NAME
+          value: {{ .Values.smcreateval.ORG_CLUSTER_SVC_NAME | quote }}
         volumeMounts:
           - name: browser-pod-manifest
             mountPath: /app/static_files
