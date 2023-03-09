@@ -75,8 +75,6 @@ echo -e "\nYour AWS secret access key is : $aws_secret_key\n"
 
 # Define the base URL and ingress host as input by the user
 
-read -p "Enter the ingress host: " ingress_host
-echo -e "\nIngress host name is : $ingress_host\n"
 
 # Define the AWS S3 bucket name and default region as input by the user
 read -p "Enter your AWS default region: " aws_region
@@ -145,7 +143,7 @@ helm repo add autoscaler https://kubernetes.github.io/autoscaler
 helm install auto-scaler autoscaler/cluster-autoscaler --set  'autoDiscovery.clusterName'=$cluster_name \
 --set awsRegion=$aws_region
 
-kubectl apply -f ingress/deploy-tls-termination.yaml
+
 
 
 # Apply the Helm chart using the inputs provided by the user
@@ -155,7 +153,6 @@ helm template . \
 --set urls.BASE_URL=http://cloudifytests-session-be.$org_name.svc.cluster.local:5000/ \
 --set s3microservices.S3_BUCKET=$s3_bucket \
 --set s3microservices.AWS_DEFAULT_REGION=$aws_region \
---set ingress.hosts[0]=$ingress_host \
 --set sessionbe.serviceAccountName=$org_name --set nginxhpa.metadata.namespace=$org_name \
 --set be.ORG_NAME=$org_name \
 --set sessionbe.image.repository="$ecr_repo:sessionbe_latest" \
