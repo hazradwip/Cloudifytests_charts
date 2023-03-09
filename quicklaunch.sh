@@ -3,10 +3,10 @@
 
 
  # Git clone the repository
-sudo git clone  https://github.com/CloudifyLabs/cloudifytests_charts.git
+sudo git clone  https://github.com/CloudifyLabs/Cloudifytests_charts.git
 
 # # Change into the cloned repository directory
-cd ./cloudifytests_charts
+cd Cloudifytests_charts
 
 # # Check if the operating system is Amazon Linux
 if [[ "$(cat /etc/os-release | grep -o 'NAME=\"Amazon Linux\"')" == 'NAME="Amazon Linux"' ]]; then
